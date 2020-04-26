@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+// const TerserPlugin = require('terser-webpack-plugin');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 module.exports = {
   target: 'web',
@@ -18,34 +19,42 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: ['awesome-typescript-loader', 'angular2-template-loader'],
+        loader: '@ngtools/webpack',
       },
       {
         test: /\.(html|css)$/,
-        use: 'raw-loader',
+        loader: 'raw-loader',
       },
     ],
   },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          warnings: false,
-          parse: {},
-          compress: {},
-          mangle: true, // Note `mangle.properties` is `false` by default.
-          module: false,
-          output: null,
-          toplevel: false,
-          nameCache: null,
-          ie8: false,
-          keep_classnames: undefined,
-          keep_fnames: false,
-          safari10: false,
-        },
-      }),
-    ],
-  },
-  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({ template: 'index.html' })],
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [
+  //     new TerserPlugin({
+  //       terserOptions: {
+  //         warnings: false,
+  //         parse: {},
+  //         compress: {},
+  //         mangle: true, // Note `mangle.properties` is `false` by default.
+  //         module: false,
+  //         output: null,
+  //         toplevel: false,
+  //         nameCache: null,
+  //         ie8: false,
+  //         keep_classnames: undefined,
+  //         keep_fnames: false,
+  //         safari10: false,
+  //       },
+  //     }),
+  //   ],
+  // },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ template: 'index.html' }),
+    new AngularCompilerPlugin({
+      tsConfigPath: './tsconfig.json',
+      entryModule: './app/app.module.ts#AppModule',
+      sourceMap: true,
+    }),
+  ],
 };
