@@ -5,8 +5,10 @@
     "clean": "rm -rf dist",
     "serve": "http-server . -p 5556",
     "build": "npm run clean && tsc",
-    "build_prod": "npm run build && browserify -s main dist/main.js > dist/bundle.js && npm run minify",
-    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js"
+    "rollup": "rollup -c",
+    "es5": "tsc --target es5 --allowJs dist/bundle.es2015.js --out dist/bundle.js",
+    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
+    "build_prod": "npm run build && npm run rollup && npm run es5 && npm run minify"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +24,11 @@
     "browserify": "^16.5.1",
     "typescript": "~3.8.3",
     "uglify-js": "^3.9.1",
-    "http-server": "^0.12.1"
+    "http-server": "^0.12.1",
+    "rollup": "^2.7.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-terser": "^5.3.0"
   }
 }
