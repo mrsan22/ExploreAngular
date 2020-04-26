@@ -4,11 +4,13 @@
   "scripts": {
     "clean": "rm -rf dist",
     "serve": "http-server . -p 5556",
-    "build": "npm run clean && tsc",
+    "build": "ngc -p tsconfig.json",
     "rollup": "rollup -c",
     "es5": "tsc --target es5 --allowJs dist/bundle.es2015.js --out dist/bundle.js",
-    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --output dist/bundle.min.js",
-    "build_prod": "npm run build && npm run rollup && npm run es5 && npm run minify"
+    "minify": "terser dist/bundle.es2015.js --compress --mangle --output dist/bundle.es2015.min.js",
+    "build_prod": "npm run clean && npm run build && npm run rollup && npm run minify",
+    "rollup_build": "npm run clean && npm run build && npm run rollup",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -21,9 +23,10 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "9.1.1",
     "browserify": "^16.5.1",
     "typescript": "~3.8.3",
-    "uglify-js": "^3.9.1",
+    "terser": "4.6.10",
     "http-server": "^0.12.1",
     "rollup": "^2.7.2",
     "rollup-plugin-node-resolve": "^5.2.0",
