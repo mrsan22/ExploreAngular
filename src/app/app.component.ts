@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 @Component({
   selector: "app-root",
   template: `
-    <p>Hello {{ name }}</p>
+    Hello World
     <!-- <p>Hello India</p> -->
     <!-- <p>Hello US</p>-->
     <!-- <form [formGroup]="loginForm">
