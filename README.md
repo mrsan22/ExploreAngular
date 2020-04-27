@@ -1,3 +1,5 @@
+## In this example, differential loading is disabled by updating `browserlist file`. This is done to test custom TerserWebPackPlugin settings.
+
 # HelloApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.4.
