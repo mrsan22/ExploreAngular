@@ -1,0 +1,3 @@
+.spn:hover {
+  @apply bg-yellow-200;
+}
